@@ -1,0 +1,79 @@
+<?php
+ 
+ $myPointer = fopen("sentence1.txt","r");
+ $sentence = fread($myPointer,filesize("sentence1.txt"));
+ 
+ $length = strlen($sentence);
+  
+  $words = array();
+  $word = " ";
+
+
+for($i=0; $i<$length; $i++)
+{
+	if(ord($sentence[$i]) == 13)
+	{
+		continue;
+	}
+	echo ord($sentence[$i]),"<br>";
+	  
+   if($sentence[$i] == " " || $sentence[$i] == "\n" || $i == $length-1 )
+	{
+		
+		
+	  /* if($sentence[$i] == "\n")
+	   {
+		 echo $i,"<br>";   
+	   }*/
+	   if($i == $length-1)
+	   {
+		  $word  .= $sentence{$i};
+	   }	
+       
+        array_push($words,$word);
+		$word = " ";
+	}
+   else
+   {
+	//echo ord($sentence[$i]),"<br>";
+	 $word .= $sentence{$i};
+   }
+  
+} 
+
+ 
+ print_r($words);
+ echo "<br>";
+
+ 
+ 
+$frequency =array();
+ 
+foreach($words as $word)
+ {
+	  
+	 if(array_key_exists($word,$frequency))
+	 {
+		 $frequency[$word]++; 
+	 }
+	 else
+	 {
+		 $frequency[$word]=1;
+	 }
+		 
+ }
+
+ $myPointer1 = fopen("sentence2.txt","w");
+ 
+foreach($frequency as $key => $value)
+ {
+	 echo "$key => $value","<br>";
+	 fwrite($myPointer1,"$key => $value");
+	 
+ }
+ 
+// print_r($frequency);
+ 
+
+
+?>
